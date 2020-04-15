@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ContentUser from './components/ContentUser'
 import ContentItem from './components/ContentItem'
 
 
@@ -13,12 +14,18 @@ class App extends Component {
 
   render() {
     return(
-      <div>
+      <div className="App">
 
         <h1>Hello Django, from React!</h1>
+        <div className="users-container">
+          <h2>Users:</h2>
+          <ContentUser />
+        </div>
 
-        <ContentItem />
-
+        <div className="items-container">
+          <h2>Items:</h2>
+          <ContentItem />
+        </div>
       </div>
     )
   }

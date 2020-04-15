@@ -4,17 +4,17 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
 
-const Item = props => (
+const User = props => (
     <Row className="ContentItem">
         <Col xs="12" sm="6">
             <Card className="Card">
-                <CardImg className="CardImage" src={props.item.image}></CardImg>
+                <CardImg className="CardImage" src={props.user.Image}></CardImg>
                 <CardBody>
                     <CardTitle>
-                        { props.item.title }
+                        Full Name: { props.user.FirstName } { props.user.LastName }
                     </CardTitle>
                     <CardText>
-                        { props.item.description }
+                        User Details: { props.user.Email } | {props.user.ZipCode}
                     </CardText>
                 </CardBody>
             </Card>
@@ -22,32 +22,32 @@ const Item = props => (
     </Row>
 )
 
-class ContentItem extends Component {
+class ContentUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: []
+            users: []
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/api/item/')
-          .then(results => this.setState({ items: results.data }))
+        axios.get('http://localhost:8000/api/user/')
+          .then(results => this.setState({ users: results.data }))
     }
 
-    itemList() {
-        return this.state.items.map(item => { 
-          return <Item item={item} key={item.id} />
+    userList() {
+        return this.state.users.map(user => { 
+          return <User user={user} key={user.id} />
         })
       }
 
     render() {
         return(
             <div>
-                { this.itemList() }
+                { this.userList() }
             </div>
         )
     }
 }
 
-export default ContentItem
+export default ContentUser

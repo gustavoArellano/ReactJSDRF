@@ -1,0 +1,10 @@
+.App {
+    padding: 20px;
+}
+
+.App .users-container, .App .items-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+}
+

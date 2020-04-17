@@ -1,10 +1,28 @@
 .App {
     padding: 20px;
+    margin: auto;
 }
 
 .App .users-container, .App .items-container {
     display: inline-block;
     vertical-align: top;
     width: 40%;
+}
+
+.RegisterContainer, .LoginContainer {
+    width: 500px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 50px auto;
+}
+
+.RegisterContainer Form label, .RegisterContainer Form input {
+    display: block;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
 }
 

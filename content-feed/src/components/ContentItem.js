@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../static/css/ContentItem.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from './NavBar'
+import '../App.css';
 import { Row, Col, Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
 
 const Item = props => (
@@ -44,6 +46,10 @@ class ContentItem extends Component {
     render() {
         return(
             <div>
+                <NavBar />
+
+                <h2>Items:</h2>
+
                 { this.itemList() }
             </div>
         )

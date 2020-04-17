@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import '../static/css/ContentItem.css';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
+import '../App.css';
+import NavBar from './NavBar'
+
 
 const User = props => (
-    <Row className="ContentItem">
-        <Col xs="12" sm="6">
-            <Card className="Card">
-                <CardImg className="CardImage" src={props.user.Image}></CardImg>
-                <CardBody>
-                    <CardTitle>
-                        Full Name: { props.user.FirstName } { props.user.LastName }
-                    </CardTitle>
-                    <CardText>
-                        User Details: { props.user.Email } | {props.user.ZipCode}
-                    </CardText>
-                </CardBody>
-            </Card>
-        </Col>
-    </Row>
-)
+
+    <div className="user-card">
+
+        <img src={props.user.Image} />
+
+        <p>{ props.user.FirstName } { props.user.LastName }</p>
+
+        <p>{ props.user.Email }</p>
+
+        <p>{ props.user.ZipCode }</p>
+
+    </div>
+
+);
 
 class ContentUser extends Component {
     constructor(props) {
@@ -43,8 +42,15 @@ class ContentUser extends Component {
 
     render() {
         return(
-            <div>
+
+            <div className="App">
+                <NavBar />
+
+
+                <h2>Users:</h2>
+
                 { this.userList() }
+
             </div>
         )
     }

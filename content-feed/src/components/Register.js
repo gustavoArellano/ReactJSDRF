@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import DjangoCSRFToken from 'django-react-csrftoken'
-import { Redirect } from "react-router-dom"
+import { Router, Redirect } from "react-router-dom"
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -110,7 +110,7 @@ class Regiseter extends Component {
         axios.post('http://localhost:8000/api/user/', user)
             .then (response => (console.log(response.data)))
             .then (req => {
-                this.setState({ redirect: '/Home'})    
+                this.setState({ redirect: '/home'})    
             })
             .catch(error => {
                 this.setState({
@@ -121,9 +121,11 @@ class Regiseter extends Component {
     }
 
     render() {
+
         if(this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
+            return <Router><Redirect to={this.state.redirect} /></Router>
         }
+
         return(
             <div className="RegisterContainer">
 

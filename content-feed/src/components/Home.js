@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ContentUser from './ContentItem'
 import NavBar from './NavBar'
-import LoginAndReg from './LoginAndReg'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 
 
 class Home extends Component {
@@ -16,7 +12,7 @@ class Home extends Component {
   render() {
     return(
 
-      <div class="home">
+      <div className="home">
         
         <NavBar />
 

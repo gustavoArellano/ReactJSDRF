@@ -9,7 +9,7 @@ const User = props => (
 
     <div className="user-card">
 
-        <img src={props.user.Image} />
+        <img src={props.user.Image} alt=""/>
 
         <p>{ props.user.FirstName } { props.user.LastName }</p>
 
@@ -20,6 +20,10 @@ const User = props => (
     </div>
 
 );
+
+const Empty = () => (
+    <h1 className="empty">There are no users registerd!!!</h1>
+)
 
 class ContentUser extends Component {
     constructor(props) {
@@ -36,7 +40,11 @@ class ContentUser extends Component {
 
     userList() {
         return this.state.users.map(user => { 
-          return <User user={user} key={user.id} />
+            if (user.length === 0) {
+                return <Empty />
+            } else {
+                return <User user={user} key={user.id} />
+            }
         })
       }
 

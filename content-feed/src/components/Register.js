@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import DjangoCSRFToken from 'django-react-csrftoken'
-import { Router, Redirect } from "react-router-dom"
+import axios from 'axios';
+import DjangoCSRFToken from 'django-react-csrftoken';
+import { Redirect } from "react-router-dom";
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -21,7 +21,13 @@ class Regiseter extends Component {
             ConfirmPassword: '',
             FirstNameError: '',
             LastNameError: '',
-            redirect: null
+            EmailError: '',
+            UserNameError: '',
+            CityError: '',
+            StateError: '',
+            ZipCodeError: '',
+            PasswordError: '',
+            redirect: false
         }
     
         this.onChangeFirstName = this.onChangeFirstName.bind(this);
@@ -32,7 +38,7 @@ class Regiseter extends Component {
         this.onChangeState = this.onChangeState.bind(this);
         this.onChangeZipCode = this.onChangeZipCode.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
+        // this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this)
     }
     
@@ -84,11 +90,11 @@ class Regiseter extends Component {
         })
     }
 
-    onChangeConfirmPassword(event) {
-        this.setState({
-            ConfirmPassword: event.target.value
-        })
-    }
+    // onChangeConfirmPassword(event) {
+    //     this.setState({
+    //         ConfirmPassword: event.target.value
+    //     })
+    // }
 
     onSubmit(event) {
         event.preventDefault();
@@ -101,29 +107,33 @@ class Regiseter extends Component {
             City: this.state.City,
             State: this.state.State,
             ZipCode: this.state.ZipCode,
-            Password: this.state.Password,
-            ConfirmPassword: this.state.ConfirmPassword
+            Password: this.state.Password
         }
 
         console.log(user)
 
         axios.post('http://localhost:8000/api/user/', user)
-            .then (response => (console.log(response.data)))
-            .then (req => {
-                this.setState({ redirect: '/home'})    
-            })
+            .then(response => (
+                console.log(response.data))
+            )
+            .then(() => this.setState({redirect: true}))
             .catch(error => {
-                this.setState({
-                    FirstNameError: error.response.data.FirstName
-                })
+                this.setState({FirstNameError: error.response.data.FirstName})
+                this.setState({LastNameError: error.response.data.LastName})
+                this.setState({EmailError: error.response.data.Email})
+                this.setState({UserNameError: error.response.data.UserName})
+                this.setState({CityError: error.response.data.City})
+                this.setState({StateError: error.response.data.State})
+                this.setState({ZipCodeError: error.response.data.ZipCode})
+                this.setState({PasswordError: error.response.data.Password})
             })
 
     }
 
     render() {
 
-        if(this.state.redirect) {
-            return <Router><Redirect to={this.state.redirect} /></Router>
+        if(this.state.redirect === true) {
+            return <Redirect to = {{pathname: "/home"}}/>
         }
 
         return(
@@ -142,31 +152,37 @@ class Regiseter extends Component {
 
                     <label>Last Name:</label>
                     <input type="text" required value={this.LastName} onChange={this.onChangeLastName}/>
-                    <label>{this.LastNameError}</label>
+                    <p className="error-message">{ this.state.LastNameError }</p>
 
                     <label>Email:</label>
                     <input type="text" required value={this.Email} onChange={this.onChangeEmail}/>
+                    <p className="error-message">{ this.state.EmailError }</p>
 
                     <label>Username:</label>
                     <input type="text" required value={this.UserName} onChange={this.onChangeUserName}/>
+                    <p className="error-message">{ this.state.UserNameError }</p>
 
                     <label>City:</label>
                     <input type="text" required value={this.City} onChange={this.onChangeCity}/>
+                    <p className="error-message">{ this.state.CityError }</p>
 
                     <label>State:</label>
                     <input type="text" required value={this.State} onChange={this.onChangeState}/>
+                    <p className="error-message">{ this.state.StateError }</p>
 
                     <label>Zip Code:</label>
                     <input type="text" required value={this.ZipCode} onChange={this.onChangeZipCode}/>
+                    <p className="error-message">{ this.state.ZipCodeError }</p>
 
                     <label>Password:</label>
                     <input type="password" required value={this.Password} onChange={this.onChangePassword}/>
+                    <p className="error-message">{ this.state.PasswordError }</p>
 
-                    <label>Confirm Password:</label>
+                    {/* <label>Confirm Password:</label>
                     <input type="password" required value={this.ConfirmPassword} onChange={this.onChangeConfirmPassword}/>
+                    <p className="error-message">{ this.state.ConfirmPasswordError }</p> */}
 
-
-                    <button className="btn btn-primary" type="submit">Submit form</button>
+                    <button className="btn btn-primary" type="submit">Submit</button>
                     
                 </form>
 
